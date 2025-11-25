@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🧠 Тренажёр ИК</div>
+            <a href="index.html" class="logo-link"><div class="logo">🧠 Тренажёр ИК</div></a>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Главная</a></li>
                 <li><a href="diagnostics.html" class="nav-link active">Диагностика</a></li>
@@ -56,10 +56,7 @@
                     <button id="reset-test-btn" class="btn btn-secondary" style="display: none;">Сбросить</button>
                 </div>
 
-                <div id="schulte-container" class="schulte-container" style="display: none;">
-                    <iframe id="schulte-iframe" src="https://www.schulte-table.com/ru/?size=5&type=numbers&style=classic&order=straight&shuffle=no&center=no" 
-                            frameborder="0" width="100%" height="600px"></iframe>
-                </div>
+                <div id="schulte-container" class="schulte-container" style="display: none;"></div>
 
                 <div id="results-container" class="results-container" style="display: none;">
                     <h3>Результаты диагностики</h3>
@@ -75,10 +72,12 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Тренажёр Ингибиторного Контроля. Все права защищены.</p>
+            <p>&copy; 2025 Тренажёр Ингибиторного Контроля.</p>
         </div>
     </footer>
 
+    <script src="js/auth.js"></script>
+    <script src="js/schulte-table.js"></script>
     <script src="js/diagnostics.js"></script>
 </body>
 </html>

@@ -33,12 +33,16 @@ DB_CONFIG = {
 # Pydantic models
 class DiagnosticsRequest(BaseModel):
     type: str  # 'primary' or 'secondary'
+    first_name: str
+    last_name: str
     attempts: List[float]
     average_time: float
     timestamp: str
 
 class TrainingRequest(BaseModel):
     exercise_type: str
+    first_name: str
+    last_name: str
     score: int
     correct: int
     incorrect: int
@@ -67,6 +71,8 @@ def init_db():
             CREATE TABLE IF NOT EXISTS diagnostics (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 type VARCHAR(20) NOT NULL,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
                 attempts JSON NOT NULL,
                 average_time FLOAT NOT NULL,
                 timestamp DATETIME NOT NULL,
@@ -79,6 +85,8 @@ def init_db():
             CREATE TABLE IF NOT EXISTS training (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 exercise_type VARCHAR(50) NOT NULL,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
                 score INT NOT NULL,
                 correct INT NOT NULL,
                 incorrect INT NOT NULL,
@@ -89,6 +97,24 @@ def init_db():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
+        
+        # Добавляем колонки если таблицы уже существуют
+        try:
+            cursor.execute("ALTER TABLE diagnostics ADD COLUMN first_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
+        try:
+            cursor.execute("ALTER TABLE diagnostics ADD COLUMN last_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
+        try:
+            cursor.execute("ALTER TABLE training ADD COLUMN first_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
+        try:
+            cursor.execute("ALTER TABLE training ADD COLUMN last_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
         
         connection.commit()
         cursor.close()
@@ -116,10 +142,10 @@ async def create_diagnostics(data: DiagnosticsRequest):
         attempts_json = json.dumps(data.attempts)
         
         query = """
-            INSERT INTO diagnostics (type, attempts, average_time, timestamp)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO diagnostics (type, first_name, last_name, attempts, average_time, timestamp)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
-        values = (data.type, attempts_json, data.average_time, data.timestamp)
+        values = (data.type, data.first_name, data.last_name, attempts_json, data.average_time, data.timestamp)
         
         cursor.execute(query, values)
         connection.commit()
@@ -165,11 +191,11 @@ async def create_training(data: TrainingRequest):
         reaction_times_json = json.dumps(data.reaction_times)
         
         query = """
-            INSERT INTO training (exercise_type, score, correct, incorrect, accuracy, 
+            INSERT INTO training (exercise_type, first_name, last_name, score, correct, incorrect, accuracy, 
                                avg_reaction_time, reaction_times, timestamp)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        values = (data.exercise_type, data.score, data.correct, data.incorrect,
+        values = (data.exercise_type, data.first_name, data.last_name, data.score, data.correct, data.incorrect,
                  data.accuracy, data.avg_reaction_time, reaction_times_json, data.timestamp)
         
         cursor.execute(query, values)

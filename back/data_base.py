@@ -45,6 +45,8 @@ def create_tables():
             CREATE TABLE IF NOT EXISTS diagnostics (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 type VARCHAR(20) NOT NULL,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
                 attempts JSON NOT NULL,
                 average_time FLOAT NOT NULL,
                 timestamp DATETIME NOT NULL,
@@ -57,6 +59,8 @@ def create_tables():
             CREATE TABLE IF NOT EXISTS training (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 exercise_type VARCHAR(50) NOT NULL,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
                 score INT NOT NULL,
                 correct INT NOT NULL,
                 incorrect INT NOT NULL,
@@ -67,6 +71,24 @@ def create_tables():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
+        
+        # Добавляем колонки если таблицы уже существуют
+        try:
+            cursor.execute("ALTER TABLE diagnostics ADD COLUMN first_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
+        try:
+            cursor.execute("ALTER TABLE diagnostics ADD COLUMN last_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
+        try:
+            cursor.execute("ALTER TABLE training ADD COLUMN first_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
+        try:
+            cursor.execute("ALTER TABLE training ADD COLUMN last_name VARCHAR(100) NOT NULL DEFAULT ''")
+        except:
+            pass
         
         connection.commit()
         cursor.close()

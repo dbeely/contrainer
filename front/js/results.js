@@ -48,8 +48,20 @@ function switchTab(tabName) {
 
 async function loadDiagnosticsData() {
     try {
+        if (!Auth.isLoggedIn()) {
+            document.getElementById('diagnostics-table-body').innerHTML = 
+                '<tr><td colspan="6" class="no-data">Пожалуйста, авторизуйтесь для просмотра результатов</td></tr>';
+            return;
+        }
+        
+        const user = Auth.getUser();
         const response = await fetch(`${API_URL}/diagnostics`);
-        const data = await response.json();
+        const allData = await response.json();
+        
+        // Фильтруем данные по текущему пользователю
+        const data = allData.filter(item => 
+            item.first_name === user.firstName && item.last_name === user.lastName
+        );
         
         if (data.length === 0) {
             document.getElementById('diagnostics-table-body').innerHTML = 
@@ -126,8 +138,20 @@ async function loadDiagnosticsData() {
 
 async function loadTrainingData() {
     try {
+        if (!Auth.isLoggedIn()) {
+            document.getElementById('training-table-body').innerHTML = 
+                '<tr><td colspan="6" class="no-data">Пожалуйста, авторизуйтесь для просмотра результатов</td></tr>';
+            return;
+        }
+        
+        const user = Auth.getUser();
         const response = await fetch(`${API_URL}/training`);
-        const data = await response.json();
+        const allData = await response.json();
+        
+        // Фильтруем данные по текущему пользователю
+        const data = allData.filter(item => 
+            item.first_name === user.firstName && item.last_name === user.lastName
+        );
         
         if (data.length === 0) {
             document.getElementById('training-table-body').innerHTML = 
@@ -223,11 +247,24 @@ async function loadTrainingData() {
 
 async function loadComparisonData() {
     try {
-        const response = await fetch(`${API_URL}/diagnostics`);
-        const data = await response.json();
+        if (!Auth.isLoggedIn()) {
+            document.getElementById('primary-avg').textContent = '-';
+            document.getElementById('secondary-avg').textContent = '-';
+            document.getElementById('improvement').textContent = '-';
+            return;
+        }
         
-        const primaryData = data.filter(d => d.type === 'primary');
-        const secondaryData = data.filter(d => d.type === 'secondary');
+        const user = Auth.getUser();
+        const response = await fetch(`${API_URL}/diagnostics`);
+        const allData = await response.json();
+        
+        // Фильтруем данные по текущему пользователю
+        const userData = allData.filter(item => 
+            item.first_name === user.firstName && item.last_name === user.lastName
+        );
+        
+        const primaryData = userData.filter(d => d.type === 'primary');
+        const secondaryData = userData.filter(d => d.type === 'secondary');
         
         if (primaryData.length === 0 || secondaryData.length === 0) {
             document.getElementById('primary-avg').textContent = '-';

@@ -385,11 +385,32 @@ function initGoNoGo(area) {
 function initTaskSwitching(area) {
     let currentRule = 'color'; // 'color' or 'shape'
     let startTime = Date.now();
+    let timeoutId = null;
+    
+    // Маппинг эмодзи к цветам
+    const shapeToColor = {
+        '🔴': 'red',
+        '🔵': 'blue',
+        '🟢': 'green',
+        '🟡': 'yellow'
+    };
+    
+    const colorNames = {
+        'red': 'Красный',
+        'blue': 'Синий',
+        'green': 'Зелёный',
+        'yellow': 'Жёлтый'
+    };
     
     function showStimulus() {
+        // Очищаем предыдущий таймер
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        
         area.innerHTML = '';
         
-        // Switch rule randomly
+        // Switch rule randomly (30% вероятность смены)
         if (Math.random() > 0.7) {
             currentRule = currentRule === 'color' ? 'shape' : 'color';
         }
@@ -405,10 +426,11 @@ function initTaskSwitching(area) {
         const shapes = ['🔴', '🔵', '🟢', '🟡'];
         const colors = ['red', 'blue', 'green', 'yellow'];
         const shapeIndex = Math.floor(Math.random() * shapes.length);
-        const colorIndex = Math.floor(Math.random() * colors.length);
+        const selectedShape = shapes[shapeIndex];
+        const selectedColor = shapeToColor[selectedShape];
         
         const stimulus = document.createElement('div');
-        stimulus.textContent = shapes[shapeIndex];
+        stimulus.textContent = selectedShape;
         stimulus.style.fontSize = '8rem';
         stimulus.style.marginBottom = '2rem';
         area.appendChild(stimulus);
@@ -420,33 +442,56 @@ function initTaskSwitching(area) {
         buttons.style.justifyContent = 'center';
         
         if (currentRule === 'color') {
-            colors.forEach((color, idx) => {
+            // Показываем цветные кнопки
+            colors.forEach((color) => {
                 const btn = document.createElement('button');
-                btn.className = 'btn btn-primary';
-                btn.textContent = color;
-                btn.onclick = () => checkAnswer(color, colors[colorIndex], Date.now() - startTime);
+                btn.className = 'btn';
+                btn.textContent = colorNames[color];
+                btn.style.backgroundColor = color;
+                btn.style.color = 'white';
+                btn.style.border = '2px solid white';
+                btn.style.minWidth = '120px';
+                btn.onclick = () => {
+                    checkAnswer(color, selectedColor, Date.now() - startTime);
+                };
                 buttons.appendChild(btn);
             });
         } else {
-            shapes.forEach((shape, idx) => {
+            // Показываем кнопки с формами (эмодзи)
+            shapes.forEach((shape) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn btn-primary';
                 btn.textContent = shape;
-                btn.onclick = () => checkAnswer(shape, shapes[shapeIndex], Date.now() - startTime);
+                btn.style.fontSize = '2rem';
+                btn.style.minWidth = '80px';
+                btn.style.minHeight = '80px';
+                btn.onclick = () => {
+                    checkAnswer(shape, selectedShape, Date.now() - startTime);
+                };
                 buttons.appendChild(btn);
             });
         }
         
         area.appendChild(buttons);
         
-        setTimeout(() => {
+        // Автоматически переходим к следующему через 5 секунд
+        timeoutId = setTimeout(() => {
             if (area.contains(stimulus)) {
+                exerciseData.incorrect++;
+                updateExerciseStats();
+                startTime = Date.now();
                 showStimulus();
             }
-        }, 4000);
+        }, 5000);
     }
     
     function checkAnswer(answer, correct, reactionTime) {
+        // Очищаем таймер при ответе
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+        
         const correctAnswer = answer === correct;
         if (correctAnswer) {
             exerciseData.correct++;
@@ -458,7 +503,7 @@ function initTaskSwitching(area) {
         updateExerciseStats();
         
         startTime = Date.now();
-        showStimulus();
+        setTimeout(() => showStimulus(), 500);
     }
     
     showStimulus();
@@ -468,51 +513,95 @@ function initTaskSwitching(area) {
 function initStopSignal(area) {
     let startTime = Date.now();
     let stopSignal = false;
+    let timeoutId = null;
+    let stopTimeoutId = null;
+    let clicked = false;
+    let stopSignalShown = false;
     
     function showStimulus() {
+        // Очищаем предыдущие таймеры
+        if (timeoutId) clearTimeout(timeoutId);
+        if (stopTimeoutId) clearTimeout(stopTimeoutId);
+        clicked = false;
+        stopSignalShown = false;
+        
         area.innerHTML = '';
         stopSignal = Math.random() > 0.7; // 30% stop signal
-        
-        const stimulus = document.createElement('div');
-        stimulus.textContent = '→';
-        stimulus.style.fontSize = '6rem';
-        stimulus.style.marginBottom = '1rem';
-        area.appendChild(stimulus);
         
         const instruction = document.createElement('div');
         instruction.textContent = 'Нажмите на стрелку, если не появится СТОП';
         instruction.style.marginBottom = '1rem';
-        area.insertBefore(instruction, stimulus);
+        instruction.style.fontSize = '1.2rem';
+        instruction.style.fontWeight = 'bold';
+        area.appendChild(instruction);
+        
+        const stimulus = document.createElement('button');
+        stimulus.textContent = '→';
+        stimulus.style.fontSize = '6rem';
+        stimulus.style.background = 'transparent';
+        stimulus.style.border = 'none';
+        stimulus.style.cursor = 'pointer';
+        stimulus.style.color = 'var(--primary-color)';
+        stimulus.style.marginBottom = '1rem';
+        stimulus.style.padding = '1rem';
+        stimulus.style.transition = 'transform 0.2s';
+        stimulus.onmouseover = () => {
+            stimulus.style.transform = 'scale(1.1)';
+        };
+        stimulus.onmouseout = () => {
+            stimulus.style.transform = 'scale(1)';
+        };
+        stimulus.onclick = () => {
+            if (clicked) return; // Предотвращаем двойные клики
+            clicked = true;
+            
+            // Очищаем все таймеры при клике
+            if (timeoutId) clearTimeout(timeoutId);
+            if (stopTimeoutId) clearTimeout(stopTimeoutId);
+            
+            if (stopSignal) {
+                // Был стоп-сигнал, но пользователь нажал - НЕПРАВИЛЬНО
+                checkAnswer(true, true, Date.now() - startTime);
+            } else {
+                // Не было стоп-сигнала, пользователь нажал - ПРАВИЛЬНО
+                checkAnswer(true, false, Date.now() - startTime);
+            }
+        };
+        area.appendChild(stimulus);
         
         const stopSignalDiv = document.createElement('div');
         stopSignalDiv.id = 'stop-signal';
         stopSignalDiv.textContent = 'СТОП!';
         stopSignalDiv.style.display = 'none';
         stopSignalDiv.style.color = 'red';
-        stopSignalDiv.style.fontSize = '3rem';
+        stopSignalDiv.style.fontSize = '4rem';
         stopSignalDiv.style.fontWeight = 'bold';
+        stopSignalDiv.style.marginBottom = '1rem';
         area.appendChild(stopSignalDiv);
         
-        stimulus.onclick = () => {
-            if (!stopSignal) {
-                checkAnswer(true, false, Date.now() - startTime);
-            } else {
-                checkAnswer(false, true, Date.now() - startTime);
-            }
-        };
-        
         if (stopSignal) {
-            setTimeout(() => {
-                stopSignalDiv.style.display = 'block';
-                setTimeout(() => {
-                    if (area.contains(stimulus)) {
-                        checkAnswer(false, false, Date.now() - startTime);
-                    }
-                }, 500);
-            }, Math.random() * 1000 + 500);
+            // Будет стоп-сигнал - пользователь НЕ должен нажимать
+            // Показываем стоп-сигнал через случайное время (500-1500мс)
+            const stopDelay = Math.random() * 1000 + 500;
+            stopTimeoutId = setTimeout(() => {
+                if (!clicked && area.contains(stimulus)) {
+                    stopSignalShown = true;
+                    stopSignalDiv.style.display = 'block';
+                }
+            }, stopDelay);
+            
+            // Если пользователь не нажал до конца (3 секунды) - это ПРАВИЛЬНО
+            timeoutId = setTimeout(() => {
+                if (!clicked && area.contains(stimulus)) {
+                    // Не нажали, стоп-сигнал был - это ПРАВИЛЬНО
+                    checkAnswer(false, true, Date.now() - startTime);
+                }
+            }, 3000);
         } else {
-            setTimeout(() => {
-                if (area.contains(stimulus)) {
+            // Нет стоп-сигнала - нужно нажать в течение 2 секунд
+            timeoutId = setTimeout(() => {
+                if (!clicked && area.contains(stimulus)) {
+                    // Не нажали когда нужно было - НЕПРАВИЛЬНО
                     checkAnswer(false, false, Date.now() - startTime);
                 }
             }, 2000);
@@ -520,20 +609,37 @@ function initStopSignal(area) {
     }
     
     function checkAnswer(clicked, shouldStop, reactionTime) {
+        // Очищаем все таймеры
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+        if (stopTimeoutId) {
+            clearTimeout(stopTimeoutId);
+            stopTimeoutId = null;
+        }
+        
+        // Правильно если:
+        // - shouldStop=true и clicked=false (не нажали когда был стоп-сигнал)
+        // - shouldStop=false и clicked=true (нажали когда не было стоп-сигнала)
         const correct = (shouldStop && !clicked) || (!shouldStop && clicked);
+        
         if (correct) {
             exerciseData.correct++;
-            exerciseData.score += shouldStop ? 20 : 10;
+            exerciseData.score += shouldStop ? 20 : 10; // Больше очков за правильное торможение
         } else {
             exerciseData.incorrect++;
         }
+        
+        // Записываем время реакции только если нажали и это было правильно
         if (clicked && !shouldStop) {
             exerciseData.reactionTimes.push(reactionTime);
         }
+        
         updateExerciseStats();
         
         startTime = Date.now();
-        setTimeout(showStimulus, 1000);
+        setTimeout(() => showStimulus(), 1000);
     }
     
     showStimulus();
@@ -553,6 +659,12 @@ function closeExercise() {
 }
 
 async function saveExerciseResults() {
+    if (!Auth.isLoggedIn()) {
+        console.log('User not logged in, skipping save');
+        return;
+    }
+    
+    const user = Auth.getUser();
     const avgReactionTime = exerciseData.reactionTimes.length > 0
         ? exerciseData.reactionTimes.reduce((a, b) => a + b, 0) / exerciseData.reactionTimes.length
         : 0;
@@ -561,6 +673,8 @@ async function saveExerciseResults() {
     
     const data = {
         exercise_type: currentExercise,
+        first_name: user.firstName,
+        last_name: user.lastName,
         score: exerciseData.score,
         correct: exerciseData.correct,
         incorrect: exerciseData.incorrect,

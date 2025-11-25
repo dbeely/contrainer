@@ -2,10 +2,14 @@ const API_URL = 'http://localhost:8000/api';
 
 let attempts = [];
 let currentAttempt = 0;
-let startTime = null;
-let testInterval = null;
+let schulteTable = null;
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Проверка авторизации
+    if (!Auth.isLoggedIn()) {
+        showAuthModal();
+    }
+    
     const startBtn = document.getElementById('start-test-btn');
     const resetBtn = document.getElementById('reset-test-btn');
     const schulteContainer = document.getElementById('schulte-container');
@@ -24,42 +28,31 @@ function startTest() {
         return;
     }
 
+    if (!Auth.isLoggedIn()) {
+        alert('Пожалуйста, авторизуйтесь для прохождения теста');
+        showAuthModal();
+        return;
+    }
+
     currentAttempt++;
-    startTime = Date.now();
-    
     document.getElementById('start-test-btn').style.display = 'none';
     document.getElementById('reset-test-btn').style.display = 'inline-block';
     document.getElementById('video-container').style.display = 'block';
     document.getElementById('schulte-container').style.display = 'block';
     document.getElementById('attempt-number').textContent = `${currentAttempt} / 3`;
     
-    // Start timer
-    testInterval = setInterval(updateTimer, 100);
-    
-    // Show manual completion button
     const schulteContainer = document.getElementById('schulte-container');
-    if (!schulteContainer.querySelector('.manual-complete-btn')) {
-        const completeBtn = document.createElement('button');
-        completeBtn.className = 'btn btn-success manual-complete-btn';
-        completeBtn.textContent = 'Завершить тест';
-        completeBtn.style.marginTop = '1rem';
-        completeBtn.onclick = () => {
-            const time = (Date.now() - startTime) / 1000;
-            completeTest(time);
-        };
-        schulteContainer.appendChild(completeBtn);
-    }
-}
-
-function updateTimer() {
-    if (startTime) {
-        const elapsed = (Date.now() - startTime) / 1000;
-        document.getElementById('current-time').textContent = `${elapsed.toFixed(2)} сек`;
-    }
+    schulteContainer.innerHTML = ''; // Очищаем контейнер
+    
+    // Создаем новую таблицу Шульте
+    schulteTable = new SchulteTable(schulteContainer, (time) => {
+        completeTest(time);
+    });
+    
+    schulteTable.start();
 }
 
 function completeTest(time) {
-    clearInterval(testInterval);
     attempts.push(time);
     
     document.getElementById('start-test-btn').style.display = 'inline-block';
@@ -67,10 +60,8 @@ function completeTest(time) {
     document.getElementById('video-container').style.display = 'none';
     document.getElementById('schulte-container').style.display = 'none';
     
-    // Remove manual complete button
-    const completeBtn = document.querySelector('.manual-complete-btn');
-    if (completeBtn) {
-        completeBtn.remove();
+    if (schulteTable) {
+        schulteTable.reset();
     }
     
     // Update average
@@ -104,10 +95,13 @@ function showResults() {
 }
 
 function resetTest() {
-    clearInterval(testInterval);
     currentAttempt = 0;
     attempts = [];
-    startTime = null;
+    
+    if (schulteTable) {
+        schulteTable.reset();
+        schulteTable = null;
+    }
     
     document.getElementById('start-test-btn').style.display = 'inline-block';
     document.getElementById('reset-test-btn').style.display = 'none';
@@ -117,18 +111,22 @@ function resetTest() {
     document.getElementById('attempt-number').textContent = '1 / 3';
     document.getElementById('current-time').textContent = '0.00 сек';
     document.getElementById('average-time').textContent = '-';
-    
-    const completeBtn = document.querySelector('.manual-complete-btn');
-    if (completeBtn) {
-        completeBtn.remove();
-    }
 }
 
 async function saveResults() {
+    if (!Auth.isLoggedIn()) {
+        alert('Пожалуйста, авторизуйтесь для сохранения результатов');
+        showAuthModal();
+        return;
+    }
+    
+    const user = Auth.getUser();
     const average = attempts.reduce((a, b) => a + b, 0) / attempts.length;
     
     const data = {
         type: 'secondary',
+        first_name: user.firstName,
+        last_name: user.lastName,
         attempts: attempts,
         average_time: average,
         timestamp: new Date().toISOString()
