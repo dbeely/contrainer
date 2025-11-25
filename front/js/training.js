@@ -142,7 +142,7 @@ function initDistraction1(area) {
             return a !== '→';
         });
         
-        // Show target arrow
+        // Показываем целевую стрелку
         const target = document.createElement('div');
         target.textContent = targetDirection === 'left' ? '←' : '→';
         target.style.color = 'blue';
@@ -150,7 +150,7 @@ function initDistraction1(area) {
         target.style.marginBottom = '1rem';
         area.appendChild(target);
         
-        // Show distractors
+        // Показываем отвлекающие элементы
         distractors.forEach(() => {
             const dist = document.createElement('span');
             dist.textContent = distractors[Math.floor(Math.random() * distractors.length)];
@@ -365,7 +365,7 @@ function initGoNoGo(area) {
         const correct = clicked === shouldClick;
         if (correct) {
             exerciseData.correct++;
-            exerciseData.score += shouldClick ? 10 : 15; // More points for No-Go
+            exerciseData.score += shouldClick ? 10 : 15; // Больше очков за правильное торможение (No-Go)
         } else {
             exerciseData.incorrect++;
         }
@@ -383,7 +383,7 @@ function initGoNoGo(area) {
 
 // Exercise 5: Task Switching
 function initTaskSwitching(area) {
-    let currentRule = 'color'; // 'color' or 'shape'
+    let currentRule = 'color'; // 'color' - цвет, 'shape' - форма
     let startTime = Date.now();
     let timeoutId = null;
     
@@ -410,7 +410,7 @@ function initTaskSwitching(area) {
         
         area.innerHTML = '';
         
-        // Switch rule randomly (30% вероятность смены)
+        // Случайная смена правила (30% вероятность смены)
         if (Math.random() > 0.7) {
             currentRule = currentRule === 'color' ? 'shape' : 'color';
         }
@@ -512,11 +512,12 @@ function initTaskSwitching(area) {
 // Exercise 6: Stop Signal
 function initStopSignal(area) {
     let startTime = Date.now();
-    let stopSignal = false;
+    let willHaveStopSignal = false;
     let timeoutId = null;
     let stopTimeoutId = null;
     let clicked = false;
     let stopSignalShown = false;
+    let isActive = true;
     
     function showStimulus() {
         // Очищаем предыдущие таймеры
@@ -524,9 +525,10 @@ function initStopSignal(area) {
         if (stopTimeoutId) clearTimeout(stopTimeoutId);
         clicked = false;
         stopSignalShown = false;
+        isActive = true;
         
         area.innerHTML = '';
-        stopSignal = Math.random() > 0.7; // 30% stop signal
+        willHaveStopSignal = Math.random() > 0.7; // 30% вероятность стоп-сигнала
         
         const instruction = document.createElement('div');
         instruction.textContent = 'Нажмите на стрелку, если не появится СТОП';
@@ -536,6 +538,7 @@ function initStopSignal(area) {
         area.appendChild(instruction);
         
         const stimulus = document.createElement('button');
+        stimulus.id = 'stop-stimulus';
         stimulus.textContent = '→';
         stimulus.style.fontSize = '6rem';
         stimulus.style.background = 'transparent';
@@ -546,24 +549,31 @@ function initStopSignal(area) {
         stimulus.style.padding = '1rem';
         stimulus.style.transition = 'transform 0.2s';
         stimulus.onmouseover = () => {
-            stimulus.style.transform = 'scale(1.1)';
+            if (isActive) {
+                stimulus.style.transform = 'scale(1.1)';
+            }
         };
         stimulus.onmouseout = () => {
             stimulus.style.transform = 'scale(1)';
         };
         stimulus.onclick = () => {
-            if (clicked) return; // Предотвращаем двойные клики
+            if (!isActive || clicked) return;
             clicked = true;
+            isActive = false;
             
             // Очищаем все таймеры при клике
             if (timeoutId) clearTimeout(timeoutId);
             if (stopTimeoutId) clearTimeout(stopTimeoutId);
             
-            if (stopSignal) {
-                // Был стоп-сигнал, но пользователь нажал - НЕПРАВИЛЬНО
+            // Проверяем правильность ответа:
+            // - Если стоп-сигнал был показан (stopSignalShown = true) - нажатие НЕПРАВИЛЬНО
+            // - Если стоп-сигнал должен был быть (willHaveStopSignal = true), но еще не показан - нажатие НЕПРАВИЛЬНО
+            // - Если стоп-сигнала не будет (willHaveStopSignal = false) - нажатие ПРАВИЛЬНО
+            if (stopSignalShown || willHaveStopSignal) {
+                // Стоп-сигнал был или должен быть - нажатие НЕПРАВИЛЬНО
                 checkAnswer(true, true, Date.now() - startTime);
             } else {
-                // Не было стоп-сигнала, пользователь нажал - ПРАВИЛЬНО
+                // Стоп-сигнала не было - нажатие ПРАВИЛЬНО
                 checkAnswer(true, false, Date.now() - startTime);
             }
         };
@@ -573,35 +583,38 @@ function initStopSignal(area) {
         stopSignalDiv.id = 'stop-signal';
         stopSignalDiv.textContent = 'СТОП!';
         stopSignalDiv.style.display = 'none';
-        stopSignalDiv.style.color = 'red';
+        stopSignalDiv.style.color = '#ef4444';
         stopSignalDiv.style.fontSize = '4rem';
         stopSignalDiv.style.fontWeight = 'bold';
         stopSignalDiv.style.marginBottom = '1rem';
+        stopSignalDiv.style.textAlign = 'center';
         area.appendChild(stopSignalDiv);
         
-        if (stopSignal) {
+        if (willHaveStopSignal) {
             // Будет стоп-сигнал - пользователь НЕ должен нажимать
-            // Показываем стоп-сигнал через случайное время (500-1500мс)
-            const stopDelay = Math.random() * 1000 + 500;
+            // Показываем стоп-сигнал через случайное время (300-1200мс)
+            const stopDelay = Math.random() * 900 + 300;
             stopTimeoutId = setTimeout(() => {
-                if (!clicked && area.contains(stimulus)) {
+                if (isActive && !clicked) {
                     stopSignalShown = true;
                     stopSignalDiv.style.display = 'block';
                 }
             }, stopDelay);
             
-            // Если пользователь не нажал до конца (3 секунды) - это ПРАВИЛЬНО
+            // Если пользователь не нажал до конца (2.5 секунды) - это ПРАВИЛЬНО
             timeoutId = setTimeout(() => {
-                if (!clicked && area.contains(stimulus)) {
+                if (isActive && !clicked) {
                     // Не нажали, стоп-сигнал был - это ПРАВИЛЬНО
+                    isActive = false;
                     checkAnswer(false, true, Date.now() - startTime);
                 }
-            }, 3000);
+            }, 2500);
         } else {
             // Нет стоп-сигнала - нужно нажать в течение 2 секунд
             timeoutId = setTimeout(() => {
-                if (!clicked && area.contains(stimulus)) {
+                if (isActive && !clicked) {
                     // Не нажали когда нужно было - НЕПРАВИЛЬНО
+                    isActive = false;
                     checkAnswer(false, false, Date.now() - startTime);
                 }
             }, 2000);
@@ -639,7 +652,11 @@ function initStopSignal(area) {
         updateExerciseStats();
         
         startTime = Date.now();
-        setTimeout(() => showStimulus(), 1000);
+        setTimeout(() => {
+            if (area) {
+                showStimulus();
+            }
+        }, 1000);
     }
     
     showStimulus();
