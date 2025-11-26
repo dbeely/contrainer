@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тренажёр Ингибиторного Контроля</title>
-    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="{{url_for('static', path='style/styles.css')}}">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo-link"><div class="logo">🧠 Тренажёр ИК</div></a>
+            <a href="home" class="logo-link"><div class="logo">🧠 Тренажёр ИК</div></a>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Главная</a></li>
-                <li><a href="diagnostics.html" class="nav-link">Диагностика</a></li>
-                <li><a href="training.html" class="nav-link">Тестирование</a></li>
-                <li><a href="re-diagnostics.html" class="nav-link">Повторная Диагностика</a></li>
-                <li><a href="results.html" class="nav-link">Результаты</a></li>
+                <li><a href="home" class="nav-link active">Главная</a></li>
+                <li><a href="diagnostics" class="nav-link">Диагностика</a></li>
+                <li><a href="training" class="nav-link">Тестирование</a></li>
+                <li><a href="re-diagnostics" class="nav-link">Повторная Диагностика</a></li>
+                <li><a href="results" class="nav-link">Результаты</a></li>
             </ul>
         </div>
     </nav>
@@ -75,7 +75,7 @@
             <div class="container">
                 <h2 class="section-title">Начните работу с тренажёром</h2>
                 <p class="cta-text">Сначала пройдите диагностику, чтобы определить ваш текущий уровень</p>
-                <a href="diagnostics.html" class="cta-button">Начать диагностику</a>
+                <a href="{{url_for('static', path='diagnostics.html')}}" class="cta-button">Начать диагностику</a>
             </div>
         </section>
     </main>
@@ -86,7 +86,7 @@
         </div>
     </footer>
 
-    <script src="js/auth.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{{url_for('static', path='auth.js')}}"></script>
+<!--    <script src="/front/js/main.js"></script>-->
 </body>
 </html>
