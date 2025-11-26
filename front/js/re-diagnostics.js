@@ -64,7 +64,7 @@ function completeTest(time) {
         schulteTable.reset();
     }
     
-    // Update average
+    // Обновление среднего результата
     const average = attempts.reduce((a, b) => a + b, 0) / attempts.length;
     document.getElementById('average-time').textContent = `${average.toFixed(2)} сек`;
     

@@ -33,7 +33,7 @@ body {
     padding: 0 20px;
 }
 
-/* Navigation */
+/* Навигация */
 .navbar {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
@@ -105,7 +105,7 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Hero Section */
+/* Выбор */
 .hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
@@ -124,7 +124,7 @@ body {
     opacity: 0.9;
 }
 
-/* Features Section */
+/* Карточки */
 .features {
     padding: 4rem 0;
 }
@@ -166,7 +166,7 @@ body {
     color: var(--primary-color);
 }
 
-/* Info Section */
+/* Информация */
 .info-section {
     padding: 4rem 0;
     background: var(--card-bg);
@@ -187,7 +187,7 @@ body {
     color: var(--text-light);
 }
 
-/* CTA Section */
+/* Начать диагностику */
 .cta-section {
     padding: 4rem 0;
     text-align: center;
@@ -216,7 +216,7 @@ body {
     transform: scale(1.05);
 }
 
-/* Page Styles */
+/* Стиль страниц */
 .main-content {
     min-height: calc(100vh - 200px);
     padding: 2rem 0;
@@ -236,7 +236,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* Diagnostics */
+/* Диагностика */
 .diagnostics-container {
     max-width: 900px;
     margin: 0 auto;
@@ -330,7 +330,7 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Buttons */
+/* Кнопки */
 .btn {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -370,7 +370,7 @@ body {
     background: #059669;
 }
 
-/* Exercises Grid */
+/* Разметка заданий */
 .exercises-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -408,7 +408,7 @@ body {
     min-height: 60px;
 }
 
-/* Modal */
+/* Модальное окно */
 .modal {
     display: none;
     position: fixed;
@@ -447,7 +447,7 @@ body {
     color: var(--text-color);
 }
 
-/* Exercise Content */
+/* Заполненность заданий */
 .exercise-content {
     padding: 1rem 0;
 }
@@ -472,7 +472,7 @@ body {
     padding: 2rem;
 }
 
-/* Results Page */
+/* Страница с результатами */
 .results-section {
     background: var(--card-bg);
     padding: 2rem;
@@ -554,7 +554,7 @@ body {
     padding: 2rem;
 }
 
-/* Comparison */
+/* Сравнение */
 .comparison-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -585,7 +585,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Footer */
+/* футер) */
 .footer {
     background: var(--text-color);
     color: white;
@@ -594,7 +594,6 @@ body {
     margin-top: 4rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .nav-menu {
         flex-direction: column;
@@ -618,7 +617,7 @@ body {
     }
 }
 
-/* Auth Modal */
+/* Вход */
 .auth-modal {
     display: none;
     position: fixed;
@@ -676,7 +675,7 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Schulte Table */
+/* Шульте */
 .schulte-table {
     margin: 2rem auto;
 }

@@ -42,7 +42,6 @@ function startExercise(exerciseType) {
     content.innerHTML = getExerciseHTML(exerciseType);
     modal.style.display = 'block';
     
-    // Initialize exercise-specific logic
     initializeExercise(exerciseType);
 }
 
@@ -125,7 +124,7 @@ function initializeExercise(exerciseType) {
     }
 }
 
-// Exercise 1: Distraction with arrows
+// первое упражнение
 function initDistraction1(area) {
     let targetDirection = Math.random() > 0.5 ? 'left' : 'right';
     let startTime = Date.now();
@@ -203,7 +202,7 @@ function initDistraction1(area) {
     showStimulus();
 }
 
-// Exercise 2: Flanker
+// фликер (2)
 function initFlanker(area) {
     let startTime = Date.now();
     
@@ -259,7 +258,7 @@ function initFlanker(area) {
     showStimulus();
 }
 
-// Exercise 3: Stroop Test
+// струп (3)
 function initStroop(area) {
     const colors = ['red', 'blue', 'green', 'yellow'];
     const colorNames = ['красный', 'синий', 'зелёный', 'жёлтый'];
@@ -320,7 +319,7 @@ function initStroop(area) {
     showStimulus();
 }
 
-// Exercise 4: Go/No-Go
+// иди-неиди(4)
 function initGoNoGo(area) {
     let startTime = Date.now();
     
@@ -381,7 +380,7 @@ function initGoNoGo(area) {
     showStimulus();
 }
 
-// Exercise 5: Task Switching
+// кружочки (5)
 function initTaskSwitching(area) {
     let currentRule = 'color'; // 'color' - цвет, 'shape' - форма
     let startTime = Date.now();
@@ -509,7 +508,7 @@ function initTaskSwitching(area) {
     showStimulus();
 }
 
-// Exercise 6: Stop Signal
+// стоп мне не приятно (6)
 function initStopSignal(area) {
     let startTime = Date.now();
     let willHaveStopSignal = false;

@@ -5,7 +5,7 @@ let trainingChart = null;
 let comparisonChart = null;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Tab switching
+    // вкладочки
     const tabBtns = document.querySelectorAll('.tab-btn');
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function switchTab(tabName) {
-    // Update buttons
+    // кнопочки
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.dataset.tab === tabName) {
@@ -29,14 +29,12 @@ function switchTab(tabName) {
         }
     });
     
-    // Update content
     document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
     });
     
     document.getElementById(`${tabName}-tab`).classList.add('active');
     
-    // Initialize charts when tab is opened
     if (tabName === 'diagnostics' && !diagnosticsChart) {
         loadDiagnosticsData();
     } else if (tabName === 'training' && !trainingChart) {
@@ -69,7 +67,7 @@ async function loadDiagnosticsData() {
             return;
         }
         
-        // Update table
+        // обновляем табличку
         const tbody = document.getElementById('diagnostics-table-body');
         tbody.innerHTML = '';
         
@@ -86,7 +84,7 @@ async function loadDiagnosticsData() {
             tbody.appendChild(row);
         });
         
-        // Create chart
+        // нов чарт
         const ctx = document.getElementById('diagnostics-chart').getContext('2d');
         if (diagnosticsChart) {
             diagnosticsChart.destroy();
@@ -159,7 +157,7 @@ async function loadTrainingData() {
             return;
         }
         
-        // Update table
+        // обнова таблички
         const tbody = document.getElementById('training-table-body');
         tbody.innerHTML = '';
         
@@ -185,7 +183,7 @@ async function loadTrainingData() {
             tbody.appendChild(row);
         });
         
-        // Create chart
+        // показать упражнение
         const ctx = document.getElementById('training-chart').getContext('2d');
         if (trainingChart) {
             trainingChart.destroy();
@@ -281,7 +279,7 @@ async function loadComparisonData() {
         document.getElementById('secondary-avg').textContent = secondaryAvg.toFixed(2);
         document.getElementById('improvement').textContent = `${improvement}%`;
         
-        // Create comparison chart
+        // чарт сравнения
         const ctx = document.getElementById('comparison-chart').getContext('2d');
         if (comparisonChart) {
             comparisonChart.destroy();
