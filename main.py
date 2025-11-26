@@ -26,3 +26,7 @@ async def get_answers(request: Request):
 @app.get("/training")
 async def get_answers(request: Request):
     return templates.TemplateResponse("training.html", context={"request": request})
+
+@app.get("/home")
+async def get_answers(request: Request):
+    return templates.TemplateResponse("index.html", context={"request": request})
