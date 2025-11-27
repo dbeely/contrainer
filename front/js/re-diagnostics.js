@@ -37,12 +37,27 @@ function startTest() {
     currentAttempt++;
     document.getElementById('start-test-btn').style.display = 'none';
     document.getElementById('reset-test-btn').style.display = 'inline-block';
-    document.getElementById('video-container').style.display = 'block';
-    document.getElementById('schulte-container').style.display = 'block';
+    
+    // Показываем видео контейнер
+    const videoContainer = document.getElementById('video-container');
+    videoContainer.style.display = 'flex';
+    
+    // Показываем контейнер таблицы Шульте
+    const schulteContainer = document.getElementById('schulte-container');
+    schulteContainer.style.display = 'flex';
+    schulteContainer.innerHTML = ''; // Очищаем контейнер
+    
     document.getElementById('attempt-number').textContent = `${currentAttempt} / 3`;
     
-    const schulteContainer = document.getElementById('schulte-container');
-    schulteContainer.innerHTML = ''; // Очищаем контейнер
+    // Перезагружаем видео для автозапуска
+    const videoIframe = document.getElementById('distraction-video');
+    if (videoIframe) {
+        const currentSrc = videoIframe.src;
+        videoIframe.src = '';
+        setTimeout(() => {
+            videoIframe.src = currentSrc;
+        }, 100);
+    }
     
     // Создаем новую таблицу Шульте
     schulteTable = new SchulteTable(schulteContainer, (time) => {
