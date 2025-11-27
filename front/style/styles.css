@@ -305,7 +305,21 @@ body {
     margin-bottom: 2rem;
 }
 
-.schulte-container,
+.schulte-container {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: visible;
+}
+
 .video-container {
     background: var(--card-bg);
     padding: 2rem;

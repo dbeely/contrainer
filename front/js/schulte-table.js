@@ -26,7 +26,14 @@ class SchulteTable {
     }
 
     render() {
-        this.container.innerHTML = '';
+        // Сохраняем блок "Найдите:", если он существует
+        const existingDisplay = this.container.querySelector('.current-number-display');
+        
+        // Очищаем контейнер, но сохраняем блок отображения
+        const tableElement = this.container.querySelector('table');
+        if (tableElement) {
+            tableElement.remove();
+        }
         
         const table = document.createElement('table');
         table.className = 'schulte-table';
@@ -34,6 +41,7 @@ class SchulteTable {
         table.style.borderCollapse = 'collapse';
         table.style.margin = '0 auto';
         table.style.maxWidth = '500px';
+        table.style.flexShrink = '0';
 
         let index = 0;
         for (let i = 0; i < this.size; i++) {
@@ -89,7 +97,12 @@ class SchulteTable {
             table.appendChild(row);
         }
 
-        this.container.appendChild(table);
+        // Вставляем таблицу после блока "Найдите:", если он есть
+        if (existingDisplay) {
+            existingDisplay.insertAdjacentElement('afterend', table);
+        } else {
+            this.container.appendChild(table);
+        }
     }
 
     handleClick(number, cell) {
@@ -120,36 +133,32 @@ class SchulteTable {
     }
     
     updateCurrentNumberDisplay() {
-        let display = this.container.parentElement.querySelector('.current-number-display');
+        let display = this.container.querySelector('.current-number-display');
         if (!display) {
             display = document.createElement('div');
             display.className = 'current-number-display';
             display.style.cssText = `
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 2rem;
-                font-weight: bold;
-                color: #6366f1;
                 text-align: center;
-                z-index: 10;
+                margin-top: 0;
+                margin-bottom: 2rem;
+                padding: 1.5rem;
                 background-color: rgba(255, 255, 255, 0.95);
-                padding: 1.5rem 2rem;
                 border-radius: 12px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                min-width: 150px;
+                width: 100%;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+                flex-shrink: 0;
+                order: -1;
             `;
-            const parent = this.container.parentElement;
-            if (parent) {
-                parent.style.position = 'relative';
-                parent.appendChild(display);
-            }
+            // Вставляем блок в начало контейнера, перед таблицей
+            this.container.insertBefore(display, this.container.firstChild);
         }
         if (display) {
             display.innerHTML = `
                 <div style="font-size: 1.2rem; color: #64748b; margin-bottom: 0.5rem;">Найдите:</div>
-                <div style="font-size: 4rem; color: #6366f1; font-weight: bold;">${this.currentNumber}</div>
+                <div style="font-size: 4rem; color: #A8D5E2; font-weight: bold;">${this.currentNumber}</div>
             `;
         }
     }
@@ -158,8 +167,10 @@ class SchulteTable {
         this.isActive = true;
         this.currentNumber = 1;
         this.startTime = Date.now();
+        // Сначала создаем блок "Найдите:", затем таблицу
+        this.updateCurrentNumberDisplay();
         this.generateTable();
-        // Не подсвечиваем первое число, просто показываем его справа
+        // Обновляем отображение текущего числа
         this.highlightNext();
         this.startTimer();
     }
@@ -189,7 +200,7 @@ class SchulteTable {
         const elapsed = (Date.now() - this.startTime) / 1000;
         
         // Удаляем отображение текущего числа
-        const display = this.container.parentElement?.querySelector('.current-number-display');
+        const display = this.container.querySelector('.current-number-display');
         if (display) {
             display.remove();
         }
@@ -205,11 +216,11 @@ class SchulteTable {
     reset() {
         this.stop();
         this.currentNumber = 1;
-        this.container.innerHTML = '';
         // Удаляем отображение текущего числа
-        const display = this.container.parentElement?.querySelector('.current-number-display');
+        const display = this.container.querySelector('.current-number-display');
         if (display) {
             display.remove();
         }
+        this.container.innerHTML = '';
     }
 }
