@@ -108,7 +108,7 @@ function updateUserDisplay() {
     if (user.isLoggedIn) {
         // Показываем имя пользователя с возможностью выхода
         userDisplay.innerHTML = `
-            <span class="user-name-display" style="color: white; padding: 0.5rem 1rem; border-radius: 8px; background-color: rgba(255, 255, 255, 0.2); cursor: pointer; transition: background-color 0.3s;">
+            <span class="user-name-display" style="color: #1e293b; padding: 0.5rem 1rem; border-radius: 8px; background-color: rgba(255, 255, 255, 0.4); cursor: pointer; transition: background-color 0.3s;">
                 ${Auth.getFullName()}
             </span>
         `;
@@ -116,7 +116,7 @@ function updateUserDisplay() {
     } else {
         // Показываем кнопку авторизации
         userDisplay.innerHTML = `
-            <button class="btn-auth" style="color: white; padding: 0.5rem 1.5rem; border-radius: 8px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); cursor: pointer; transition: all 0.3s; font-size: 1rem; font-weight: 600;">
+            <button class="btn-auth" style="color: #1e293b; padding: 0.5rem 1.5rem; border-radius: 8px; background-color: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255, 255, 255, 0.5); cursor: pointer; transition: all 0.3s; font-size: 1rem; font-weight: 600;">
                 Авторизоваться
             </button>
         `;
@@ -124,10 +124,10 @@ function updateUserDisplay() {
             showAuthModal();
         });
         userDisplay.querySelector('.btn-auth').addEventListener('mouseenter', function() {
-            this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+            this.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
         });
         userDisplay.querySelector('.btn-auth').addEventListener('mouseleave', function() {
-            this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            this.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
         });
     }
     

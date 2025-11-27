@@ -24,69 +24,10 @@
     <main class="main-content">
         <div class="container">
             <h1 class="page-title">Результаты и Анализ</h1>
-            <p class="page-description">Просмотрите ваши результаты диагностики и тренировок</p>
+            <p class="page-description">Сравнение результатов первичной и повторной диагностики</p>
 
             <div class="results-section">
-                <div class="results-tabs">
-                    <button class="tab-btn active" data-tab="diagnostics">Диагностика</button>
-                    <button class="tab-btn" data-tab="training">Тренировки</button>
-                    <button class="tab-btn" data-tab="comparison">Сравнение</button>
-                </div>
-
-                <div id="diagnostics-tab" class="tab-content active">
-                    <h2>Результаты диагностики</h2>
-                    <div class="chart-container">
-                        <canvas id="diagnostics-chart"></canvas>
-                    </div>
-                    <div class="results-table-container">
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Дата</th>
-                                    <th>Тип</th>
-                                    <th>Попытка 1</th>
-                                    <th>Попытка 2</th>
-                                    <th>Попытка 3</th>
-                                    <th>Среднее время</th>
-                                </tr>
-                            </thead>
-                            <tbody id="diagnostics-table-body">
-                                <tr>
-                                    <td colspan="6" class="no-data">Загрузка данных...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="training-tab" class="tab-content">
-                    <h2>Результаты тренировок</h2>
-                    <div class="chart-container">
-                        <canvas id="training-chart"></canvas>
-                    </div>
-                    <div class="results-table-container">
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Дата</th>
-                                    <th>Упражнение</th>
-                                    <th>Тип</th>
-                                    <th>Точность</th>
-                                    <th>Время реакции</th>
-                                    <th>Очки</th>
-                                </tr>
-                            </thead>
-                            <tbody id="training-table-body">
-                                <tr>
-                                    <td colspan="6" class="no-data">Загрузка данных...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="comparison-tab" class="tab-content">
-                    <h2>Сравнение результатов</h2>
+                <div id="comparison-tab">
                     <div class="comparison-container">
                         <div class="comparison-card">
                             <h3>Первичная диагностика</h3>
