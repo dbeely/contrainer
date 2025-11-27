@@ -50,7 +50,7 @@ function showAuthModal() {
     modal.className = 'auth-modal';
     modal.style.display = 'flex';
     modal.innerHTML = `
-        <div class="auth-modal-content">
+        <div class="auth-modal-content" >
             <h2>Авторизация</h2>
             <p>Пожалуйста, введите ваше имя и фамилию для сохранения результатов</p>
             <form id="auth-form">
@@ -62,7 +62,7 @@ function showAuthModal() {
                     <label for="last-name">Фамилия:</label>
                     <input type="text" id="last-name" required autocomplete="family-name">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Войти</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; user-select: none">Войти</button>
             </form>
         </div>
     `;
@@ -116,7 +116,7 @@ function updateUserDisplay() {
     } else {
         // Показываем кнопку авторизации
         userDisplay.innerHTML = `
-            <button class="btn-auth" style="color: #1e293b; padding: 0.5rem 1.5rem; border-radius: 8px; background-color: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255, 255, 255, 0.5); cursor: pointer; transition: all 0.3s; font-size: 1rem; font-weight: 600;">
+            <button class="btn-auth" style="color: #1e293b; padding: 0.5rem 1.5rem; border-radius: 8px; background-color: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255, 255, 255, 0.5); cursor: pointer; transition: all 0.3s; font-size: 1rem; font-weight: 600; user-select: none">
                 Авторизоваться
             </button>
         `;
@@ -145,8 +145,8 @@ function showLogoutModal() {
             <p>Вы действительно хотите выйти?</p>
             <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">Текущий пользователь: ${Auth.getFullName()}</p>
             <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button id="logout-confirm" class="btn btn-primary" style="flex: 1;">Выйти</button>
-                <button id="logout-cancel" class="btn btn-secondary" style="flex: 1;">Отмена</button>
+                <button id="logout-confirm" class="btn btn-primary" style="flex: 1; user-select: none">Выйти</button>
+                <button id="logout-cancel" class="btn btn-secondary" style="flex: 1; user-select: none  ">Отмена</button>
             </div>
         </div>
     `;
