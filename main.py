@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
+from fastapi.responses import FileResponse
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -14,6 +15,10 @@ templates = Jinja2Templates(directory="front")
 @app.get("/")
 async def load_root(request: Request):
     return templates.TemplateResponse("index.html", context={"request": request})
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse("front/files/favicon.ico")
 
 @app.get("/diagnostics")
 async def load_diagnostics(request: Request):
@@ -34,3 +39,4 @@ async def load_training(request: Request):
 @app.get("/home")
 async def load_home(request: Request):
     return templates.TemplateResponse("index.html", context={"request": request})
+
