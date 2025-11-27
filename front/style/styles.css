@@ -14,6 +14,7 @@
     --bg-color: #f8fafc;
     --text-color: #1e293b;
     --text-light: #64748b;
+    --primary-color-text: #64748b;
     --border-color: #e2e8f0;
     --card-bg: #ffffff;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -170,7 +171,7 @@ body {
 
 .feature-card h3 {
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: var(--primary-color-text);
 }
 
 /* Info Section */
@@ -260,7 +261,7 @@ body {
 
 .test-info h2 {
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: var(--primary-color-text);
 }
 
 .instructions-list {
@@ -296,7 +297,7 @@ body {
 .stat-value {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--primary-color-text);
 }
 
 .test-controls {
@@ -413,7 +414,7 @@ body {
 
 .exercise-card h3 {
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: var(--primary-color-text);
 }
 
 .exercise-desc {
@@ -555,7 +556,7 @@ body {
 .results-table th {
     background: var(--bg-color);
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--primary-color-text);
 }
 
 .results-table tr:hover {
@@ -657,7 +658,7 @@ body {
 
 .auth-modal-content h2 {
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: var(--primary-color-text);
 }
 
 .auth-modal-content p {
