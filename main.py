@@ -13,6 +13,7 @@ app = FastAPI(
     debug=config.DEBUG
 )
 app.mount("/front", StaticFiles(directory="front"), name="static")
+app.mount("/files", StaticFiles(directory="files"), name="files")
 templates = Jinja2Templates(directory="front")
 
 def get_template_context(request: Request):

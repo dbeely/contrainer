@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32.275513mm"
+   height="31.219263mm"
+   viewBox="0 0 32.275513 31.219263"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="рисунок.svg.2025_11_27_06_23_37.0.svg"
+   inkscape:export-batch-path="ikonki"
+   inkscape:export-batch-name="ikonki"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.71713664"
+     inkscape:cx="78.088326"
+     inkscape:cy="561.25984"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:export-bgcolor="#ffffff00" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="слой 4"
+     transform="translate(-114.20737,-42.323604)">
+    <g
+       id="g48"
+       transform="matrix(0.56944493,0,0,0.5669616,45.78078,98.159869)"
+       style="fill:#1e293b;fill-opacity:1;stroke:none;stroke-width:1.75994;stroke-opacity:1"
+       inkscape:label="man">
+      <path
+         id="path48-1"
+         style="fill:#1e293b;fill-opacity:1;stroke:none;stroke-width:3.51987;stroke-linecap:round;stroke-dashoffset:32.8819;stroke-opacity:1"
+         d="m 176.84257,-43.464009 c -23.60272,-0.110167 -33.07716,0.208327 -56.6789,-0.07856 0,0 8.35958,-26.055116 27.91273,-26.055115 19.55315,10e-7 28.76617,26.133673 28.76617,26.133673 z"
+         sodipodi:nodetypes="ccsc" />
+      <circle
+         style="fill:#1e293b;fill-opacity:1;stroke:none;stroke-width:3.51987;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-dashoffset:32.8819;stroke-opacity:1"
+         id="path47-3"
+         cx="148.52785"
+         cy="-86.950172"
+         r="11.533155" />
+    </g>
+  </g>
+</svg>

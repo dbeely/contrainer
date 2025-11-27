@@ -67,10 +67,24 @@ body {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-size: 1.5rem;
     font-weight: bold;
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo span {
+    color: var(--text-color);
 }
 
 .logo-link {
@@ -167,6 +181,16 @@ body {
 .feature-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+
+.feature-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 }
 
 .feature-card h3 {
@@ -449,6 +473,16 @@ body {
 .exercise-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.exercise-icon img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }
 
 .exercise-card h3 {
