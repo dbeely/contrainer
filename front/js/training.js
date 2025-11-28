@@ -370,7 +370,7 @@ function updateExerciseStats() {
     document.getElementById('exercise-incorrect').textContent = exerciseData.incorrect;
     document.getElementById('time').textContent = formatTime();
 }
-
+// ыыы
 function closeExercise() {
     document.getElementById('exercise-modal').style.display = 'none';
     clearInterval(timerId)
