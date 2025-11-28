@@ -1,5 +1,5 @@
 // API_URL загружается из .env через window.API_URL в HTML шаблоне
-const API_URL = window.API_URL || 'https://contrainer.ru/api';
+const API_URL = window.API_URL || 'https://localhost/api';
 
 let attempts = [];
 let currentAttempt = 0;
@@ -13,9 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const startBtn = document.getElementById('start-test-btn');
     const resetBtn = document.getElementById('reset-test-btn');
-    const schulteContainer = document.getElementById('schulte-container');
-    const videoContainer = document.getElementById('video-container');
-    const resultsContainer = document.getElementById('results-container');
     const saveBtn = document.getElementById('save-results-btn');
 
     startBtn.addEventListener('click', startTest);
@@ -38,9 +35,9 @@ function startTest() {
     document.getElementById('start-test-btn').style.display = 'none';
     document.getElementById('reset-test-btn').style.display = 'inline-block';
     
-    // Показываем видео контейнер
-    const videoContainer = document.getElementById('video-container');
-    videoContainer.style.display = 'flex';
+    // Показываем обертку с видео и таблицей
+    const testWrapper = document.getElementById('test-content-wrapper');
+    testWrapper.style.display = 'flex';
     
     // Показываем контейнер таблицы Шульте
     const schulteContainer = document.getElementById('schulte-container');
@@ -72,8 +69,7 @@ function completeTest(time) {
     
     document.getElementById('start-test-btn').style.display = 'inline-block';
     document.getElementById('reset-test-btn').style.display = 'none';
-    document.getElementById('video-container').style.display = 'none';
-    document.getElementById('schulte-container').style.display = 'none';
+    document.getElementById('test-content-wrapper').style.display = 'none';
     
     if (schulteTable) {
         schulteTable.reset();
@@ -120,8 +116,7 @@ function resetTest() {
     
     document.getElementById('start-test-btn').style.display = 'inline-block';
     document.getElementById('reset-test-btn').style.display = 'none';
-    document.getElementById('video-container').style.display = 'none';
-    document.getElementById('schulte-container').style.display = 'none';
+    document.getElementById('test-content-wrapper').style.display = 'none';
     document.getElementById('results-container').style.display = 'none';
     document.getElementById('attempt-number').textContent = '1 / 3';
     document.getElementById('current-time').textContent = '0.00 сек';

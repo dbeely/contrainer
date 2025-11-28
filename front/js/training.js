@@ -1,5 +1,5 @@
 // API_URL загружается из .env через window.API_URL в HTML шаблоне
-const API_URL = window.API_URL || 'https://contrainer.ru/api';
+const API_URL = window.API_URL || 'https://localhost/api';
 
 let currentExercise = null;
 let exerciseData = {
