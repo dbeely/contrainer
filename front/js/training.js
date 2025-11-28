@@ -373,5 +373,6 @@ function updateExerciseStats() {
 
 function closeExercise() {
     document.getElementById('exercise-modal').style.display = 'none';
-    clearInterval(timerId)
+    clearInterval(timerId);
+    exerciseData = {score: 0, correct: 0, incorrect: 0};
 }
