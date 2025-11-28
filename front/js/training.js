@@ -368,3 +368,12 @@ function initGoNoGo(area) {
 
     showStimulus();
 }
+function updateExerciseStats() {
+    document.getElementById('exercise-score').textContent = exerciseData.score;
+    document.getElementById('exercise-correct').textContent = exerciseData.correct;
+    document.getElementById('exercise-incorrect').textContent = exerciseData.incorrect;
+}
+
+function closeExercise() {
+    document.getElementById('exercise-modal').style.display = 'none';
+}
