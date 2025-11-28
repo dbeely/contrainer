@@ -29,7 +29,6 @@ function startTest() {
     }
 
     if (!Auth.isLoggedIn()) {
-        alert('Пожалуйста, авторизуйтесь для прохождения теста');
         showAuthModal();
         return;
     }
