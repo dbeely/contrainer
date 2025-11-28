@@ -1,6 +1,6 @@
 # 🚀 УСТЬ-ИЛИМСКАЯ БРАТВА ПРЕДСТАВЛЯЕТ 💥 ПРОЕКТ CONTRAINER 🔥
 
-![Братва в деле](https://github.com/dbeely/contrainer/raw/main/front/files/pacan1.jpg)
+![Братва в деле](https://github.com/dbeely/contrainer/raw/main/front/files/pacani/pacan1.jpg)
 
 ---
 
@@ -17,16 +17,14 @@
 - 💎 Стиль — усть-илимский шик, братан!
 
 ---
-
+![Братва в деле3](https://github.com/dbeely/contrainer/raw/main/front/files/pacani/pacan3.jpg)
 ## 🛠 Как запустить — просто по-братски
 
 git clone https://github.com/dbeely/contrainer.git
 cd contrainer
 
 ставь зависимости под твой стиль
-npm install
 
-или
 pip install -r requirements.txt
 
 запускай движуху
@@ -35,7 +33,7 @@ uvicorn main:app --reload(главное не забудь быть в корн�
 Если что не взлетело — пиши в Issues, разберём по-братски.
 
 ---
-
+![Братва в деле54](https://github.com/dbeely/contrainer/raw/main/front/files/pacani/pacan4.jpg)
 ## 🎯 Что у нас есть под капотом
 
 | Фича            | Описание                         | Статус   |
@@ -47,7 +45,7 @@ uvicorn main:app --reload(главное не забудь быть в корн�
 | 🎮 Геймификация | Ачивки для чемпионов братвы      | 🏆 Soon  |
 
 ---
-
+![Братва в деле42](https://github.com/dbeely/contrainer/raw/main/front/files/pacani/pacan5.jpg)
 ## 👥 Усть-Илимская команда
 
 - Микаил — мясник по коду 🔪  
@@ -58,7 +56,7 @@ uvicorn main:app --reload(главное не забудь быть в корн�
 - Ты — будущий братан!
 
 Форкни, допиливай, делай пул реквест — и ты с нами!
-
+![Братва в деле4](https://github.com/dbeely/contrainer/raw/main/front/files/pacani/pacan2.jpg)
 ---
 
 ## ⭐ Поддержи братву!
@@ -75,4 +73,4 @@ uvicorn main:app --reload(главное не забудь быть в корн�
 
 #УстьИлимск #Братва #ПацанскийКод #RealGangsta 🔥
 
-![Братва в деле2](https://github.com/dbeely/contrainer/raw/main/front/files/pacan2.jpg)
+![Братва в деле2](https://github.com/dbeely/contrainer/raw/main/front/files/pacani/pacan_con.jpg)
