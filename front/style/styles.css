@@ -329,11 +329,18 @@ body {
     margin-bottom: 2rem;
 }
 
+.test-content-wrapper {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
 .schulte-container {
     background: var(--card-bg);
     padding: 2rem;
     border-radius: 12px;
-    margin-bottom: 2rem;
     box-shadow: var(--shadow);
     position: relative;
     min-height: 400px;
@@ -342,19 +349,22 @@ body {
     justify-content: flex-start;
     align-items: center;
     overflow: visible;
+    flex: 1;
+    min-width: 400px;
 }
 
 .video-container {
     background: var(--card-bg);
     padding: 2rem;
     border-radius: 12px;
-    margin-bottom: 2rem;
     box-shadow: var(--shadow);
     position: relative;
     min-height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+    min-width: 400px;
 }
 
 .video-wrapper {
@@ -703,6 +713,16 @@ body {
 
     .exercises-grid {
         grid-template-columns: 1fr;
+    }
+
+    .test-content-wrapper {
+        flex-direction: column;
+    }
+
+    .schulte-container,
+    .video-container {
+        min-width: 100%;
+        width: 100%;
     }
 }
 
