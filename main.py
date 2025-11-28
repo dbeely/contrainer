@@ -15,7 +15,7 @@ import os
 # --- 1. Конфигурация Базы Данных ---
 load_dotenv()
 
-Формат: mysql+mysqlconnector://user:password@host/db_name
+# Формат: mysql+mysqlconnector://user:password@host/db_name
 SQLALCHEMY_DATABASE_URL = "mysql+mysqlconnector://schulte_user:6178@localhost/schulte_db"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
