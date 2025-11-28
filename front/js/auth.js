@@ -56,11 +56,11 @@ function showAuthModal() {
             <form id="auth-form">
                 <div class="form-group">
                     <label for="first-name">Имя:</label>
-                    <input type="text" id="first-name" required autocomplete="given-name">
+                    <input type="text" id="first-name" required autocomplete="given-name" maxlength="16" minlength="3">
                 </div>
                 <div class="form-group">
                     <label for="last-name">Фамилия:</label>
-                    <input type="text" id="last-name" required autocomplete="family-name">
+                    <input type="text" id="last-name" required autocomplete="family-name" maxlength="20" minlength="3">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; user-select: none">Войти</button>
             </form>

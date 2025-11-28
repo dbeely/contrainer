@@ -29,7 +29,6 @@ function startTest() {
     }
 
     if (!Auth.isLoggedIn()) {
-        alert('Пожалуйста, авторизуйтесь для прохождения теста');
         showAuthModal();
         return;
     }
@@ -68,8 +67,6 @@ function completeTest(time) {
     
     if (currentAttempt >= 3) {
         showResults();
-    } else {
-        alert(`Попытка ${currentAttempt} завершена. Время: ${time.toFixed(2)} сек. Нажмите "Начать тест" для следующей попытки.`);
     }
 }
 
@@ -112,7 +109,6 @@ function resetTest() {
 
 async function saveResults() {
     if (!Auth.isLoggedIn()) {
-        alert('Пожалуйста, авторизуйтесь для сохранения результатов');
         showAuthModal();
         return;
     }
