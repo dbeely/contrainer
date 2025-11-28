@@ -73,3 +73,4 @@ uvicorn main:app --reload(главное не забудь быть в корн�
 
 #УстьИлимск #Братва #ПацанскийКод #RealGangsta 🔥
 
+![Братва в деле2](https://github.com/dbeely/contrainer/raw/main/front/files/pacan2.jpg)
