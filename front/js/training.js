@@ -134,7 +134,7 @@ function initializeExercise(exerciseType) {
 function initDistraction1(area) {
     let targetDirection = Math.random() > 0.5 ? 'left' : 'right';
     let startTime = Date.now();
-    seconds = 120;
+    seconds = 2;
     updateExerciseStats();
     timerId = setInterval(tick, 1000);
 
@@ -374,4 +374,5 @@ function updateExerciseStats() {
 function closeExercise() {
     document.getElementById('exercise-modal').style.display = 'none';
     clearInterval(timerId)
+    exerciseData = {score: 0, correct: 0, incorrect: 0};
 }
