@@ -137,7 +137,7 @@ async def load_root(request: Request):
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
-    # Убедитесь, что файл существует по этому пути
+    # Убедитесь, что файл существует по этому пути.
     if os.path.exists("front/files/favicon.ico"):
         return FileResponse("front/files/favicon.ico")
     return ""
